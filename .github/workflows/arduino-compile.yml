@@ -1,0 +1,32 @@
+name: Arduino Compile Check
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Arduino CLI
+      uses: arduino/setup-arduino-cli@v1
+      
+    - name: Install Arduino AVR Core
+      run: |
+        arduino-cli core update-index
+        arduino-cli core install arduino:avr
+        
+    - name: Install LiquidCrystal I2C Library from ZIP
+      run: |
+        # Extract and install the library from your Dependencies folder
+        unzip Dependencies/LiquidCrystal_I2C-1.1.3.zip -d /tmp/
+        arduino-cli lib install --zip-path Dependencies/LiquidCrystal_I2C-1.1.3.zip || arduino-cli lib install "LiquidCrystal I2C"
+        
+    - name: Compile DigitalClock Sketch
+      run: |
+        arduino-cli compile --fqbn arduino:avr:uno DigitalClock/

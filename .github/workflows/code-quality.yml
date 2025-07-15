@@ -1,0 +1,24 @@
+name: Code Quality
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Run Arduino Lint
+      uses: arduino/arduino-lint-action@v1
+      with:
+        library-manager: update
+        
+    - name: Check file structure
+      run: |
+        echo "Checking repository structure..."
+        ls -la
+        echo "Checking DigitalClock folder..."
+        ls -la DigitalClock/
+        echo "Checking Dependencies folder..."
+        ls -la Dependencies/

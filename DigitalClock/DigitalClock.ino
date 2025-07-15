@@ -4,10 +4,10 @@
 // LCD I2C address is 0x27 and size is 16x2
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
-// Time variables (start time: 08:00:00)
-int hour = 15;
-int minute = 1;
-int second = 20;
+// Time variables (start time: 00:00:00)
+int hour = 0;
+int minute = 0;
+int second = 0;
 
 // Alarm times: define HH and MM (you can add more)
 const int NUM_ALARMS = 9;
